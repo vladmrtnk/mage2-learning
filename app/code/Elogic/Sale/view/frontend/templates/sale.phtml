@@ -1,0 +1,54 @@
+<?php
+/** @var \Elogic\Sale\Block\Sale\Sale $block */
+/** @var \Elogic\Sale\Api\Data\SaleInterface $item */
+$item = $block->getItem();
+?>
+
+<div class="sale-grid">
+    <div class="sale-item-image">
+        <img src="<?php echo $item->getImagePath() ? $item->getImagePath() : 'https://lmagento2.ddev.site/static/version1662971914/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/small_image.jpg' ?>"
+             alt="<?php echo $item->getTitle(); ?>"/>
+    </div>
+    <div class="sale-item-info">
+        <strong class="sale-item-title">
+            <?php echo $item->getTitle(); ?>
+        </strong>
+        <p class="sale-item-valid">
+            <?php
+            echo date('j M Y', strtotime($item->getValidFrom())) . ' - ' .
+                date('j M Y', strtotime($item->getValidUntil()));
+            ?>
+        </p>
+        <div class="sale-item-description">
+            <?php echo $item->getDescription(); ?>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .sale-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .sale-grid div {
+        margin-right: 20px;
+        margin-bottom: 30px;
+    }
+
+    .sale-item-image {
+        width: 35%;
+    }
+
+    .sale-item-image img {
+        width: 100%;
+    }
+
+    .sale-item-title {
+        font-size: large;
+    }
+
+    .page-layout-1column .toolbar-products {
+        position: relative;
+    }
+</style>

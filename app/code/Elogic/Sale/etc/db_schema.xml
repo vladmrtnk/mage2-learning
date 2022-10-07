@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="elogic_sale_entity" engine="innodb">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false"/>
+        <column xsi:type="varchar" name="slug" length="255" nullable="true"/>
+        <column xsi:type="text" name="description" nullable="true"/>
+        <column xsi:type="float" name="percent_discount" nullable="false"/>
+        <column xsi:type="datetime" name="valid_from" nullable="true"/>
+        <column xsi:type="datetime" name="valid_until" nullable="true"/>
+        <column xsi:type="text" name="products" nullable="true"/>
+        <column xsi:type="int" name="catalog_price_rule_id" nullable="true"/>
+        <column xsi:type="text" name="sale_image_path" nullable="true"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" default="false"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALE_ENTITY_SALE_ID_SLUG_KEY">
+            <column name="entity_id"/>
+            <column name="slug"/>
+        </constraint>
+    </table>
+</schema>

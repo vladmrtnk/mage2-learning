@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <nova_poshta>
+                <active>0</active>
+                <title>Нова пошта</title>
+                <name>Прикольна назва продукту</name>
+                <shipping_cost>5</shipping_cost>
+                <sallowspecific>0</sallowspecific>
+                <sort_order>15</sort_order>
+                <price_for_girls_active>0</price_for_girls_active>
+                <price_for_girls>100</price_for_girls>
+                <model>Elogic\Product\Model\Carrier\NovaPoshta</model>
+            </nova_poshta>
+        </carriers>
+    </default>
+</config>

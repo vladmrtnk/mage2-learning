@@ -1,0 +1,49 @@
+<?php
+/** @var \Elogic\Sale\Block\Sale\Sale $block */
+?>
+
+<div class="sales-grid">
+    <?php /** @var \Elogic\Sale\Api\Data\SaleInterface $item */ ?>
+    <?php foreach ($block->getItems() as $item): ?>
+        <div class="sale-item">
+            <div class="sale-item-image">
+                <img src="<?php echo $item->getImagePath() ? $item->getImagePath() : 'https://lmagento2.ddev.site/static/version1662971914/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/small_image.jpg' ?>"
+                     alt="<?php echo $item->getTitle(); ?>"/>
+            </div>
+            <div class="sale-item-info">
+                <strong class="sale-item-title">
+                    <a class="sale-item-link" href="<?php echo $block->getBaseUrl() . 'sale/' . $item->getSlug(); ?>">
+                        <?php echo $item->getTitle(); ?>
+                    </a>
+                </strong>
+                <p class="sale-item-valid">
+                    <?php
+                    echo date('j M Y', strtotime($item->getValidFrom())) . ' - ' .
+                        date('j M Y', strtotime($item->getValidUntil()));
+                    ?>
+                </p>
+                <div class="sale-item-description">
+                    <?php echo $item->getDescription(); ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<style type="text/css">
+    .sales-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .sale-item {
+        min-width: 300px;
+        max-width: 300px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sale-item-image img {
+        width: 100%;
+    }
+</style>

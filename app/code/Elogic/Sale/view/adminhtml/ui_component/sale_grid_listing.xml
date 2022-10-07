@@ -1,0 +1,121 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">sale_grid_listing.elogic_sale_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add new Sale</label>
+            </button>
+        </buttons>
+        <spinner>sale_columns</spinner>
+        <deps>
+            <dep>sale_grid_listing.elogic_sale_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="elogic_sale_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Catalog::products</aclResource>
+        <dataProvider name="elogic_sale_listing_data_source"
+                      class="Elogic\Sale\Ui\DataProvider\Sale\Listing\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="filters"/>
+        <paging name="listing_panging"/>
+    </listingToolbar>
+
+    <columns name="sale_columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="false">ID</label>
+            </settings>
+        </column>
+        <column name="path" sortOrder="15" component="Magento_Ui/js/grid/columns/thumbnail"
+                class="Elogic\Sale\Ui\Component\Listing\Columns\Thumbnail">
+            <settings>
+                <hasPreview>0</hasPreview>
+                <addField>false</addField>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="title" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="slug" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Slug</label>
+            </settings>
+        </column>
+        <column name="description" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Description</label>
+            </settings>
+        </column>
+        <column name="percent_discount" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Percent</label>
+            </settings>
+        </column>
+        <column name="valid_from" sortOrder="60">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">From</label>
+            </settings>
+        </column>
+        <column name="valid_until" sortOrder="70">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Until</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Elogic\Sale\Ui\Component\Listing\Columns\SaleActions" sortOrder="100">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

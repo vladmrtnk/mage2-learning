@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="elogic_sale_save">
+        <observer name="set_catalog_price_rule" instance="Elogic\Sale\Observer\SetCatalogPriceRuleObserver"/>
+    </event>
+</config>
