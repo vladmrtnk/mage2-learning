@@ -8,9 +8,19 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Show implements HttpGetActionInterface
 {
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     private PageFactory $pageFactory;
+    /**
+     * @var \Elogic\Sale\Model\SaleRepository
+     */
     private SaleRepository $saleRepository;
 
+    /**
+     * @param  \Magento\Framework\View\Result\PageFactory  $pageFactory
+     * @param  \Elogic\Sale\Model\SaleRepository  $saleRepository
+     */
     public function __construct(
         PageFactory $pageFactory,
         SaleRepository $saleRepository,
@@ -19,6 +29,9 @@ class Show implements HttpGetActionInterface
         $this->saleRepository = $saleRepository;
     }
 
+    /**
+     * @return \Magento\Framework\View\Result\Page
+     */
     public function execute()
     {
         $result = $this->pageFactory->create();

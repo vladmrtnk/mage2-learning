@@ -70,11 +70,17 @@ class AddSimpleProduct implements DataPatchInterface
         }
     }
 
+    /**
+     * @return array|string[]
+     */
     public static function getDependencies()
     {
         return [];
     }
 
+    /**
+     * @return array|string[]
+     */
     public function getAliases()
     {
         return [];

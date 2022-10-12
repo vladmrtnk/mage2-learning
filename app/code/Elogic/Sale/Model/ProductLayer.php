@@ -17,7 +17,7 @@ class ProductLayer extends Layer
     /**
      * @var \Magento\Framework\View\Element\BlockFactory
      */
-    protected $_blockFactory;
+    protected BlockFactory $blockFactory;
 
     /**
      * @param  \Magento\Catalog\Model\Layer\ContextInterface  $context
@@ -41,7 +41,7 @@ class ProductLayer extends Layer
         BlockFactory $blockFactory,
         array $data = []
     ) {
-        $this->_blockFactory = $blockFactory;
+        $this->blockFactory = $blockFactory;
         parent::__construct(
             $context,
             $layerStateFactory,

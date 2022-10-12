@@ -8,6 +8,7 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
 {
     /**
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getButtonData()
     {

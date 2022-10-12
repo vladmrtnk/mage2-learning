@@ -10,7 +10,7 @@ class Products implements ArrayInterface
     /**
      * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
      */
-    protected $_productCollectionFactory;
+    protected CollectionFactory $productCollectionFactory;
 
     /**
      * @param  \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory  $productCollectionFactory
@@ -18,7 +18,7 @@ class Products implements ArrayInterface
     public function __construct(
         CollectionFactory $productCollectionFactory
     ) {
-        $this->_productCollectionFactory = $productCollectionFactory;
+        $this->productCollectionFactory = $productCollectionFactory;
     }
 
     /**
@@ -26,7 +26,7 @@ class Products implements ArrayInterface
      */
     public function toOptionArray()
     {
-        $collection = $this->_productCollectionFactory
+        $collection = $this->productCollectionFactory
             ->create()
             ->addAttributeToSelect('name');
 

@@ -10,6 +10,9 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 class Edit extends Action
 {
+    /**
+     * @var \Elogic\Sale\Model\SaleRepository
+     */
     private SaleRepository $saleRepository;
 
     /**

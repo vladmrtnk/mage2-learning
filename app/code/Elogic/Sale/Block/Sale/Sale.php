@@ -8,8 +8,17 @@ use Magento\Framework\View\Element\Template;
 
 class Sale extends Template
 {
+    /**
+     * @var \Magento\Framework\View\Element\Template\Context
+     */
     private Template\Context $context;
+    /**
+     * @var \Elogic\Sale\Model\ResourceModel\Sale\CollectionFactory
+     */
     private CollectionFactory $saleCollection;
+    /**
+     * @var \Elogic\Sale\Api\SaleRepositoryInterface
+     */
     private SaleRepositoryInterface $saleRepository;
 
     /**

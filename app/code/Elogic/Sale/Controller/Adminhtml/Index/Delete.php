@@ -12,9 +12,20 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 class Delete extends Action implements HttpPostActionInterface
 {
+    /**
+     * @var \Elogic\Sale\Api\SaleRepositoryInterface
+     */
     private SaleRepositoryInterface $saleRepository;
+    /**
+     * @var \Magento\CatalogRule\Api\CatalogRuleRepositoryInterface
+     */
     private CatalogRuleRepositoryInterface $ruleRepository;
 
+    /**
+     * @param  \Magento\Backend\App\Action\Context  $context
+     * @param  \Elogic\Sale\Api\SaleRepositoryInterface  $saleRepository
+     * @param  \Magento\CatalogRule\Api\CatalogRuleRepositoryInterface  $ruleRepository
+     */
     public function __construct(
         Context $context,
         SaleRepositoryInterface $saleRepository,

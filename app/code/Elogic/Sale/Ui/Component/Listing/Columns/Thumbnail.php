@@ -6,6 +6,11 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Thumbnail extends Column
 {
+    /**
+     * @param  array  $dataSource
+     *
+     * @return array
+     */
     public function prepareDataSource(array $dataSource)
     {
         foreach ($dataSource["data"]["items"] as &$item) {

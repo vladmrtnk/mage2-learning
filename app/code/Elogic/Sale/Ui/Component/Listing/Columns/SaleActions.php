@@ -12,7 +12,7 @@ class SaleActions extends Column
     /**
      * @var UrlInterface
      */
-    protected $urlBuilder;
+    protected UrlInterface $urlBuilder;
 
     /**
      * @param  ContextInterface  $context

@@ -81,9 +81,10 @@ class Router implements RouterInterface
     }
 
     /**
-     * @param  RequestInterface  $request
+     * @param  \Magento\Framework\App\RequestInterface  $request
      *
-     * @return ActionInterface|null
+     * @return \Magento\Framework\App\ActionInterface|null
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function match(RequestInterface $request)
     {
