@@ -5,8 +5,7 @@
                 type="Elogic\Sale\Model\Sale"/>
     <preference for="Elogic\Sale\Api\SaleRepositoryInterface"
                 type="Elogic\Sale\Model\SaleRepository"/>
-    <preference for="Elogic\Sale\Api\SaleSearchResultInterface"
-                type="Elogic\Sale\Model\SaleSearchResult"/>
+
 
     <preference for="Magento\Catalog\Model\Layer\ContextInterface"
                 type="Magento\Catalog\Model\Layer\Context"/>

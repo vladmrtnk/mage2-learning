@@ -1,0 +1,21 @@
+<!--@subject {{trans "Price update"}} @-->
+<!--@vars {} @-->
+
+{{template config_path="design/email/header_template"}}
+<div class="sale-grid">
+    <div class="sale-item-image">
+        <img src="{{var image}}" alt="Image sale">
+    </div>
+    <div class="sale-item-info">
+        <strong class="sale-item-title">
+            {{var title}} - {{var percent}}%
+        </strong>
+        <p class="sale-item-valid">
+            {{var date_valid}}
+        </p>
+        <div class="sale-item-description">
+            {{var description}}
+        </div>
+    </div>
+</div>
+{{template config_path="design/email/footer_template"}}

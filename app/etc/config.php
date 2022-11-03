@@ -349,6 +349,8 @@ return [
         'Learning_FirstUnit' => 0,
         'Learning_SaleTask' => 0,
         'Learning_SecondUnit' => 0,
+        'Mageplaza_Core' => 1,
+        'Mageplaza_Smtp' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Temando_ShippingRemover' => 1

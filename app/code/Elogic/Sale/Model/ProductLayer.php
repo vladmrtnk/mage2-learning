@@ -63,7 +63,7 @@ class ProductLayer extends Layer
         $collection = parent::getProductCollection();
 
         /** @var \Elogic\Sale\Block\Sale\Sale $block */
-        $block = $this->_blockFactory->createBlock('Elogic\Sale\Block\Sale\Sale');
+        $block = $this->blockFactory->createBlock('Elogic\Sale\Block\Sale\Sale');
 
         $products = $block->getItem()->getProducts();
 

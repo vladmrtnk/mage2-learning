@@ -4,7 +4,7 @@ namespace Elogic\Sale\Model;
 
 use Elogic\Sale\Api\Data\SaleInterface;
 use Elogic\Sale\Api\SaleRepositoryInterface;
-use Elogic\Sale\Api\SaleSearchResultInterfaceFactory;
+use Magento\Framework\Api\SearchResultsInterface;
 use Elogic\Sale\Model\ResourceModel\Sale;
 use Elogic\Sale\Model\ResourceModel\Sale\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaInterface;
@@ -26,21 +26,21 @@ class SaleRepository implements SaleRepositoryInterface
      */
     private Sale $saleResource;
     /**
-     * @var \Elogic\Sale\Api\SaleSearchResultInterfaceFactory
+     * @var \Magento\Framework\Api\SearchResultsInterface
      */
-    private SaleSearchResultInterfaceFactory $searchResultFactory;
+    private SearchResultsInterface $searchResultFactory;
 
     /**
      * @param  \Elogic\Sale\Model\SaleFactory  $saleFactory
      * @param  \Elogic\Sale\Model\ResourceModel\Sale\CollectionFactory  $collectionFactory
      * @param  \Elogic\Sale\Model\ResourceModel\Sale  $saleResource
-     * @param  \Elogic\Sale\Api\SaleSearchResultInterfaceFactory  $searchResultInterfaceFactory
+     * @param  \Magento\Framework\Api\SearchResultsInterface  $searchResultInterfaceFactory
      */
     public function __construct(
         SaleFactory $saleFactory,
         CollectionFactory $collectionFactory,
         Sale $saleResource,
-        SaleSearchResultInterfaceFactory $searchResultInterfaceFactory,
+        SearchResultsInterface $searchResultInterfaceFactory,
     ) {
         $this->saleFactory = $saleFactory;
         $this->collectionFactory = $collectionFactory;

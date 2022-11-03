@@ -56,8 +56,10 @@ class Save extends Action implements HttpPostActionInterface
         try {
             $id = $requestData['general'][SaleInterface::SALE_ID];
             $sale = $this->saleRepository->get($id);
+            $isNew = false;
         } catch (\Exception $e) {
             $sale = $this->saleFactory->create();
+            $isNew = true;
         }
 
         $sale->setTitle($requestData['general'][SaleInterface::TITLE]);
@@ -78,11 +80,10 @@ class Save extends Action implements HttpPostActionInterface
             $this->messageManager->addSuccessMessage(__('Sale was saved.'));
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage(__('Error. Cannot save'));
-
             $resultRedirect->setPath('*/*/new');
         }
 
-        $this->_eventManager->dispatch('elogic_sale_save', ['sale' => $sale]);
+        $this->_eventManager->dispatch('elogic_sale_save', ['sale' => $sale, 'is_new' => $isNew]);
 
         return $resultRedirect;
     }

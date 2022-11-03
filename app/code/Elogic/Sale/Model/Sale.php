@@ -196,17 +196,4 @@ class Sale extends AbstractModel implements SaleInterface
     {
         $this->setData(self::IMAGE_PATH, $path);
     }
-
-    /**
-     * @param $identifier
-     *
-     * @return int
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function checkIdentifier($identifier)
-    {
-        $slug = explode('/', $identifier)[1];
-
-        return $this->_getResource()->checkSlug($slug);
-    }
 }

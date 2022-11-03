@@ -179,13 +179,4 @@ interface SaleInterface
      * @return $this
      */
     public function setImagePath($path);
-
-    /**
-     * Check if sale identifier exist. Return sale id if sale exists
-     *
-     * @param  string  $identifier
-     *
-     * @return int
-     */
-    public function checkIdentifier($identifier);
 }

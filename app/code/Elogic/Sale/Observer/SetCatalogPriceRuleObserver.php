@@ -5,7 +5,7 @@ namespace Elogic\Sale\Observer;
 use Elogic\Sale\Api\SaleRepositoryInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\CatalogRule\Api\CatalogRuleRepositoryInterface;
-use Magento\CatalogRule\Model\ResourceModel\RuleFactory;
+use Magento\CatalogRule\Model\RuleFactory;
 use Magento\CatalogRule\Model\Rule\JobFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Event\Observer;
@@ -18,7 +18,7 @@ class SetCatalogPriceRuleObserver implements ObserverInterface
      */
     private CatalogRuleRepositoryInterface $ruleRepository;
     /**
-     * @var \Magento\CatalogRule\Model\ResourceModel\RuleFactory
+     * @var \Magento\CatalogRule\Model\RuleFactory
      */
     private RuleFactory $ruleFactory;
     /**
@@ -40,7 +40,7 @@ class SetCatalogPriceRuleObserver implements ObserverInterface
 
     /**
      * @param  \Magento\CatalogRule\Api\CatalogRuleRepositoryInterface  $ruleRepository
-     * @param  \Magento\CatalogRule\Model\ResourceModel\RuleFactory  $ruleFactory
+     * @param  \Magento\CatalogRule\Model\RuleFactory  $ruleFactory
      * @param  \Magento\Catalog\Api\ProductRepositoryInterface  $productRepository
      * @param  \Magento\Framework\Api\SearchCriteriaBuilder  $searchCriteriaBuilder
      * @param  \Magento\CatalogRule\Model\Rule\JobFactory  $ruleJobFactory

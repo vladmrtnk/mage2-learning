@@ -5,10 +5,11 @@ namespace Elogic\Sale\Block\Sale;
 use Elogic\Sale\Model\Layer\Resolver;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
+use Magento\Catalog\Block\Product\ListProduct;
 use Magento\Framework\Data\Helper\PostHelper;
 use Magento\Framework\Url\Helper\Data;
 
-class Products extends \Magento\Catalog\Block\Product\ListProduct
+class Products extends ListProduct
 {
     /**
      * @param  \Magento\Catalog\Block\Product\Context  $context

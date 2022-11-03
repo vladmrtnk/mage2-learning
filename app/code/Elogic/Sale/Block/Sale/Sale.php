@@ -5,13 +5,10 @@ namespace Elogic\Sale\Block\Sale;
 use Elogic\Sale\Api\SaleRepositoryInterface;
 use Elogic\Sale\Model\ResourceModel\Sale\CollectionFactory;
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
 
 class Sale extends Template
 {
-    /**
-     * @var \Magento\Framework\View\Element\Template\Context
-     */
-    private Template\Context $context;
     /**
      * @var \Elogic\Sale\Model\ResourceModel\Sale\CollectionFactory
      */
@@ -28,12 +25,11 @@ class Sale extends Template
      * @param  array  $data
      */
     public function __construct(
-        Template\Context $context,
+        Context $context,
         CollectionFactory $saleCollection,
         SaleRepositoryInterface $saleRepository,
         array $data = []
     ) {
-        $this->context = $context;
         $this->saleCollection = $saleCollection;
         $this->saleRepository = $saleRepository;
         parent::__construct($context, $data);
@@ -44,7 +40,8 @@ class Sale extends Template
      */
     public function getItems()
     {
-        $items = $this->saleCollection->create()->getItems();
+        $collection = $this->saleCollection->create();
+        $items = $collection->addFieldToFilter('valid_until', ['gt' => date_create()])->getItems();
 
         return $items;
     }

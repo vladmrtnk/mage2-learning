@@ -3,5 +3,6 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="elogic_sale_save">
         <observer name="set_catalog_price_rule" instance="Elogic\Sale\Observer\SetCatalogPriceRuleObserver"/>
+        <observer name="email_sales_for_user_group" instance="Elogic\Sale\Observer\EmailSalesForUserGroup"/>
     </event>
 </config>

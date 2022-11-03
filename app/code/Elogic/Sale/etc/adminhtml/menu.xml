@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Elogic_Sale::sale"
-             title="Sale Task" module="Elogic_Sale"
+             title="Custom Sales" module="Elogic_Sale"
              sortOrder="10"
              resource="Magento_Backend::content"
              action="sale"

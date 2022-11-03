@@ -4,7 +4,7 @@
       layout="1column">
     <body>
         <referenceContainer name="content">
-            <block name="sale.list" class="Elogic\Sale\Block\Sale\Sale" template="list.phtml"/>
+            <block name="sale.list" class="Elogic\Sale\Block\Sale\Sale" template="Elogic_Sale::list.phtml"/>
         </referenceContainer>
     </body>
 </page>

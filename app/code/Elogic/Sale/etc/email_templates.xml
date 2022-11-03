@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="elogic_sales_for_user_group" label="Sales for Users group" file="sales_for_users_template.html"
+              type="html" module="Elogic_Sale" area="frontend"/>
+</config>

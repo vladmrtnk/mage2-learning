@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <email_notification>
+            <general>
+                <enable>1</enable>
+                <customer_group>1</customer_group>
+            </general>
+        </email_notification>
+    </default>
+</config>

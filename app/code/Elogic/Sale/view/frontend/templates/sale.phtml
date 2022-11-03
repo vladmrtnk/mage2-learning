@@ -11,7 +11,7 @@ $item = $block->getItem();
     </div>
     <div class="sale-item-info">
         <strong class="sale-item-title">
-            <?php echo $item->getTitle(); ?>
+            <?php echo $item->getTitle() . ' - ' . $item->getPercentDiscount() . '%'; ?>
         </strong>
         <p class="sale-item-valid">
             <?php

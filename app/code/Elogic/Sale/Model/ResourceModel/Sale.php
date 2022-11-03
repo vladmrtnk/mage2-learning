@@ -14,20 +14,4 @@ class Sale extends AbstractDb
     {
         $this->_init('elogic_sale_entity', SaleInterface::SALE_ID);
     }
-
-    /**
-     * @param $slug
-     *
-     * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function checkSlug($slug)
-    {
-        $select = $this->getConnection()->select()
-            ->from('elogic_sale_entity')
-            ->columns($this->getIdFieldName())
-            ->where(SaleInterface::SLUG . ' = ?', $slug);
-
-        return $this->getConnection()->fetchOne($select);
-    }
 }

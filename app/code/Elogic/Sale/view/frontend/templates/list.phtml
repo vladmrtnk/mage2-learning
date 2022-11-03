@@ -7,13 +7,12 @@
     <?php foreach ($block->getItems() as $item): ?>
         <div class="sale-item">
             <div class="sale-item-image">
-                <img src="<?php echo $item->getImagePath() ? $item->getImagePath() : 'https://lmagento2.ddev.site/static/version1662971914/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/small_image.jpg' ?>"
-                     alt="<?php echo $item->getTitle(); ?>"/>
+                <img src="<?php echo $item->getImagePath(); ?>" alt="<?php echo $item->getTitle(); ?>"/>
             </div>
             <div class="sale-item-info">
                 <strong class="sale-item-title">
                     <a class="sale-item-link" href="<?php echo $block->getBaseUrl() . 'sale/' . $item->getSlug(); ?>">
-                        <?php echo $item->getTitle(); ?>
+                        <?php echo $item->getTitle() . ' - ' . $item->getPercentDiscount() . '%'; ?>
                     </a>
                 </strong>
                 <p class="sale-item-valid">

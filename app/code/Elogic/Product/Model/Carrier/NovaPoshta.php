@@ -2,7 +2,6 @@
 
 namespace Elogic\Product\Model\Carrier;
 
-use Elogic\Product\Helper\Product;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory;
@@ -10,6 +9,7 @@ use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Shipping\Model\Rate\ResultFactory;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Psr\Log\LoggerInterface;
 
 class NovaPoshta extends AbstractCarrier implements CarrierInterface
@@ -31,7 +31,7 @@ class NovaPoshta extends AbstractCarrier implements CarrierInterface
      */
     private MethodFactory $rateMethodFactory;
     /**
-     * @var \Elogic\Product\Model\Carrier\CollectionFactory
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
      */
     private CollectionFactory $productCollectionFactory;
 
@@ -41,7 +41,7 @@ class NovaPoshta extends AbstractCarrier implements CarrierInterface
      * @param  \Psr\Log\LoggerInterface  $logger
      * @param  \Magento\Shipping\Model\Rate\ResultFactory  $rateResultFactory
      * @param  \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory  $rateMethodFactory
-     * @param  \Elogic\Product\Model\Carrier\CollectionFactory  $productCollectionFactory
+     * @param  \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory  $productCollectionFactory
      * @param  array  $data
      */
     public function __construct(
