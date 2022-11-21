@@ -8,7 +8,7 @@ return [
     ],
     'queue'                => [
         'amqp' => [
-            'host'        => 'localhost',
+            'host'        => 'ddev-lmage2-rabbitmq',
             'port'        => '5672',
             'user'        => 'rabbitmq',
             'password'    => 'rabbitmq',

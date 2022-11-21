@@ -344,7 +344,7 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Magento_WishlistSampleData' => 1,
-        'Elogic_Product' => 1,
+        'Elogic_Product' => 0,
         'Elogic_Sale' => 1,
         'Learning_FirstUnit' => 0,
         'Learning_SaleTask' => 0,

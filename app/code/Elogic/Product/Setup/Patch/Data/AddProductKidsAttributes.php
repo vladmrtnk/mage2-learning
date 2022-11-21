@@ -2,6 +2,7 @@
 
 namespace Elogic\Product\Setup\Patch\Data;
 
+use Elogic\Product\Helper\ProductKidsAttributesData;
 use Magento\Catalog\Model\Product;
 use Magento\Eav\Model\AttributeSetRepository;
 use Magento\Eav\Setup\EavSetup;
@@ -13,48 +14,6 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
 
 class AddProductKidsAttributes implements DataPatchInterface
 {
-    /**#@+
-     * Constants defined for data product
-     */
-    private const ATTRIBUTE_SET_DATA = [
-        'name'       => 'Kids',
-        'sort_order' => null,
-    ];
-    private const ATTRIBUTES = [
-        'child_size'   => [
-            'config' => [
-                'group'            => 'General',
-                'label'            => 'Child size',
-                'type'             => 'int',
-                'input'            => 'select',
-                'required'         => false,
-                'visible_on_front' => true,
-            ],
-            'values' => [
-                '1' => 'XS',
-                '2' => 'S',
-                '3' => 'M',
-                '4' => 'L',
-                '5' => 'XL',
-            ],
-        ],
-        'child_gender' => [
-            'config' => [
-                'group'            => 'General',
-                'label'            => 'Child gender',
-                'type'             => 'int',
-                'input'            => 'select',
-                'required'         => false,
-                'visible_on_front' => true,
-            ],
-            'values' => [
-                '1' => 'Boy',
-                '2' => 'Girl',
-            ],
-        ],
-    ];
-    /**#@-*/
-
     /**
      * @var \Magento\Framework\Setup\ModuleDataSetupInterface
      */
@@ -123,11 +82,11 @@ class AddProductKidsAttributes implements DataPatchInterface
     {
         $this->eavSetup->addAttributeSet(
             Product::ENTITY,
-            self::ATTRIBUTE_SET_DATA['name'],
-            self::ATTRIBUTE_SET_DATA['sort_order'],
+            ProductKidsAttributesData::ATTRIBUTE_SET_DATA['name'],
+            ProductKidsAttributesData::ATTRIBUTE_SET_DATA['sort_order'],
         );
 
-        foreach (self::ATTRIBUTES as $attributeName => $attribute) {
+        foreach (ProductKidsAttributesData::ATTRIBUTES as $attributeName => $attribute) {
             $this->eavSetup->addAttribute(
                 Product::ENTITY,
                 $attributeName,
@@ -145,13 +104,13 @@ class AddProductKidsAttributes implements DataPatchInterface
     {
         $attributeSetList = $this->attributeSetRepository->getList($this->searchCriteria)->getItems();
         foreach ($attributeSetList as $attributeSet) {
-            if (self::ATTRIBUTE_SET_DATA['name'] == $attributeSet->getAttributeSetName()) {
+            if (ProductKidsAttributesData::ATTRIBUTE_SET_DATA['name'] == $attributeSet->getAttributeSetName()) {
                 $this->attributeSetRepository->deleteById($attributeSet->getAttributeSetId());
                 break;
             }
         }
 
-        foreach (array_keys(self::ATTRIBUTES) as $attributeName) {
+        foreach (array_keys(ProductKidsAttributesData::ATTRIBUTES) as $attributeName) {
             $this->eavSetup->removeAttribute(
                 Product::ENTITY,
                 $attributeName
@@ -165,7 +124,7 @@ class AddProductKidsAttributes implements DataPatchInterface
      */
     private function setDefaultValues()
     {
-        foreach (self::ATTRIBUTES as $attributeName => $attribute) {
+        foreach (ProductKidsAttributesData::ATTRIBUTES as $attributeName => $attribute) {
             $id = $this->eavSetup->getAttributeId(Product::ENTITY, $attributeName);
 
             $options = [
