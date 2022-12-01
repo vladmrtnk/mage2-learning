@@ -34,7 +34,7 @@ class PublishProductToRabbit
      */
     public function execute()
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $product = $this->productInterfaceFactory->create();
             $product->setData(SimpleProductData::PRODUCT_DATA);
             $rand = rand(1, 99999);
