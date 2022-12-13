@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="salesforce.consumer"
+              queue="salesforce.queue"
+              connection="amqp"
+              handler="Elogic\SalesforceIntegration\Model\SalesforceConsumer::execute"
+    />
+</config>

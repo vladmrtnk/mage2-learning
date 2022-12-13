@@ -37,10 +37,10 @@ class AddProductKidsAttributes implements DataPatchInterface
         AttributeSetRepository $attributeSetRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
     ) {
-        $this->moduleDataSetup = $moduleDataSetup;
+        $this->moduleDataSetup        = $moduleDataSetup;
         $this->attributeSetRepository = $attributeSetRepository;
-        $this->searchCriteria = $searchCriteriaBuilder->create();
-        $this->eavSetup = $setupFactory->create(['setup' => $this->moduleDataSetup]);
+        $this->searchCriteria         = $searchCriteriaBuilder->create();
+        $this->eavSetup               = $setupFactory->create(['setup' => $this->moduleDataSetup]);
     }
 
     /**
