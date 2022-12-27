@@ -3,4 +3,7 @@
     <publisher topic="salesforce">
         <connection name="amqp" exchange="elogic.salesforce.exchange" disabled="false"/>
     </publisher>
+<!--    <publisher topic="salesforce2">-->
+<!--        <connection name="amqp" exchange="elogic.salesforce.exchange.2" disabled="false"/>-->
+<!--    </publisher>-->
 </config>

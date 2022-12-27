@@ -1,6 +1,6 @@
 <?php
 
-namespace Elogic\SalesforceIntegration\Model;
+namespace Elogic\SalesforceIntegration\Model\Salesforce;
 
 use Elogic\SalesforceIntegration\Api\Data\SalesforceInterface;
 use Magento\Framework\MessageQueue\PublisherInterface;
@@ -28,9 +28,7 @@ class SalesforcePublisher
     }
 
     /**
-     * Add message to queue
-     *
-     * @param \Elogic\SalesforceIntegration\Api\Data\SalesforceInterface $salesforce
+     * @param  \Elogic\SalesforceIntegration\Api\Data\SalesforceInterface  $salesforce
      *
      * @return void
      */

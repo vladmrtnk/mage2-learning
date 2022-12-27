@@ -3,6 +3,11 @@
     <consumer name="salesforce.consumer"
               queue="salesforce.queue"
               connection="amqp"
-              handler="Elogic\SalesforceIntegration\Model\SalesforceConsumer::execute"
+              handler="Elogic\SalesforceIntegration\Model\Salesforce\SalesforceConsumer::process"
     />
+<!--    <consumer name="salesforce.consumer.2"-->
+<!--              queue="salesforce.queue.2"-->
+<!--              connection="amqp"-->
+<!--              handler="Elogic\SalesforceIntegration\Model\Salesforce\SalesforceConsumer::process"-->
+<!--    />-->
 </config>

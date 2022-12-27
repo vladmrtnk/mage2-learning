@@ -3,4 +3,7 @@
     <exchange name="elogic.salesforce.exchange" type="topic" connection="amqp">
         <binding id="ElogicSalesforce" topic="salesforce" destinationType="queue" destination="salesforce.queue"/>
     </exchange>
+<!--    <exchange name="elogic.salesforce.exchange.2" type="topic" connection="amqp">-->
+<!--        <binding id="ElogicSalesforce2" topic="salesforce2" destinationType="queue" destination="salesforce.queue.2"/>-->
+<!--    </exchange>-->
 </config>

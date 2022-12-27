@@ -11,96 +11,91 @@ interface SalesforceInterface
     const CUSTOMER_ID = 'customer_id';
     const PRODUCTS = 'products';
     const PRICE_BOOK_ID = 'price_book_id';
-    const CONTRACT_ID = 'contract_id';
     const ORDER_ID = 'order_id';
+    const SALESFORCE_ORDER_ID = 'salesforce_order_id';
+    const SALESFORCE_CONTRACT_ID = 'salesforce_contract_id';
+    const ATTRIBUTES = [
+        self::ENTITY_ID,
+        self::CUSTOMER_ID,
+        self::PRODUCTS,
+        self::PRICE_BOOK_ID,
+        self::ORDER_ID,
+        self::SALESFORCE_ORDER_ID,
+        self::SALESFORCE_CONTRACT_ID,
+    ];
     /**#@-*/
 
     /**
-     * Salesforce integration ID
-     *
-     * @return int|null
+     * @return mixed
      */
     public function getId();
 
     /**
-     * Get Customer
+     * @param $id
      *
-     * @return string|null
+     * @return mixed
+     */
+    public function setId($id);
+
+    /**
+     * @return mixed
      */
     public function getCustomerId();
 
     /**
-     * Set customer
+     * @param $id
      *
-     * @param int $id
-     * @return $this
+     * @return mixed
      */
-    public function setCustomerId(int $id);
+    public function setCustomerId($id);
 
     /**
-     * Get Products
-     *
-     * @return array|null
-     */
-    public function getProducts();
-
-    /**
-     * Set products
-     *
-     * @param array $ids
-     * @return $this
-     */
-    public function setProducts(array $ids);
-
-    /**
-     * Get Product ids
-     *
-     * @return string|null
+     * @return mixed
      */
     public function getProductIds();
 
     /**
-     * Get PriceBook
+     * @param $ids
      *
-     * @return string|null
+     * @return mixed
      */
-    public function getPriceBookId();
+    public function setProductIds($ids);
 
     /**
-     * Set PriceBook
-     *
-     * @param $id
-     * @return $this
-     */
-    public function setPriceBookId($id);
-
-    /**
-     * Get Contract
-     *
-     * @return string|null
-     */
-    public function getContractId();
-
-    /**
-     * Set Contract
-     *
-     * @param int $id
-     * @return $this
-     */
-    public function setContractId(int $id);
-
-    /**
-     * Get Order
-     *
-     * @return string|null
+     * @return mixed
      */
     public function getOrderId();
 
     /**
-     * Set Order
+     * @param $id
      *
-     * @param int $id
-     * @return $this
+     * @return mixed
      */
-    public function setOrderId(int $id);
+    public function setOrderId($id);
+
+    /**
+     * @return mixed
+     */
+    public function getSalesforceOrderId();
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function setSalesforceOrderId($id);
+
+    /**
+     * @return mixed
+     */
+    public function getSalesforceContractId();
+
+    /**
+     * Get Salesforce Contract ID
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function setSalesforceContractId($id);
 }

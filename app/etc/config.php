@@ -347,8 +347,6 @@ return [
         'Elogic_Product' => 0,
         'Elogic_Sale' => 0,
         'Elogic_SalesforceIntegration' => 1,
-        'Mageplaza_Core' => 0,
-        'Mageplaza_Smtp' => 0,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Temando_ShippingRemover' => 1

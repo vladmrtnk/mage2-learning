@@ -59,7 +59,7 @@ class SalesforceRepository implements \Elogic\SalesforceIntegration\Api\Salesfor
         $this->salesforceResource->load($salesforce, $id);
 
         if (!$salesforce->getId()) {
-            throw new NoSuchEntityException(__('Unable to find sale with ID "%value"', ['value' => $saleId]));
+            throw new NoSuchEntityException(__('Unable to find sale with ID "%value"', ['value' => $id]));
         }
 
         return $salesforce;
