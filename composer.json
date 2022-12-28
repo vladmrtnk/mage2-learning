@@ -15,7 +15,7 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "version": "2.4.5",
+    "version": "2.4.5-p1",
     "require": {
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
@@ -38,9 +38,9 @@
         "magento/module-theme-sample-data": "100.4.*",
         "magento/module-widget-sample-data": "100.4.*",
         "magento/module-wishlist-sample-data": "100.4.*",
-        "magento/product-community-edition": "2.4.5",
+        "magento/product-community-edition": "2.4.5-p1",
         "magento/sample-data-media": "100.4.*",
-        "mageplaza/module-smtp": "^4.7"
+      "ext-curl": "*"
     },
     "autoload": {
         "exclude-from-classmap": [
@@ -71,12 +71,11 @@
         "magento/magento-coding-standard": "*",
         "magento/magento2-functional-testing-framework": "^3.7",
         "pdepend/pdepend": "~2.10.0",
-        "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.12.0",
         "phpstan/phpstan": "^1.6.8",
         "phpunit/phpunit": "~9.5.20",
         "sebastian/phpcpd": "^6.0.3",
-        "squizlabs/php_codesniffer": "~3.6.2",
+        "squizlabs/php_codesniffer": "~3.6.0",
         "symfony/finder": "^5.2"
     },
     "conflict": {
