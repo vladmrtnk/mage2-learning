@@ -29,6 +29,12 @@ class CreateOrderObserver implements ObserverInterface
      */
     private LoggerInterface $logger;
 
+    /**
+     * @param \Elogic\SalesforceIntegration\Api\Data\SalesforceInterfaceFactory $salesforceInterfaceFactory
+     * @param \Elogic\SalesforceIntegration\Model\SalesforceRepository $salesforceRepository
+     * @param \Elogic\SalesforceIntegration\Model\Salesforce\SalesforcePublisher $publisher
+     * @param \Psr\Log\LoggerInterface $logger
+     */
     public function __construct(
         SalesforceInterfaceFactory $salesforceInterfaceFactory,
         SalesforceRepository $salesforceRepository,
@@ -42,7 +48,9 @@ class CreateOrderObserver implements ObserverInterface
     }
 
     /**
-     * @inheritDoc
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     * @throws \Magento\Framework\Exception\AlreadyExistsException
      */
     public function execute(Observer $observer)
     {

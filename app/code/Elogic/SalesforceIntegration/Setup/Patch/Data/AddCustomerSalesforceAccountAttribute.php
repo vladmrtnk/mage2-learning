@@ -15,8 +15,6 @@ class AddCustomerSalesforceAccountAttribute implements DataPatchInterface
      * @var \Magento\Framework\Setup\ModuleDataSetupInterface
      */
     private ModuleDataSetupInterface $moduleDataSetup;
-
-
     /**
      * @var \Magento\Customer\Setup\CustomerSetupFactory
      */
@@ -26,7 +24,7 @@ class AddCustomerSalesforceAccountAttribute implements DataPatchInterface
         ModuleDataSetupInterface $moduleDataSetup,
         CustomerSetupFactory $customerSetupFactory
     ) {
-        $this->moduleDataSetup      = $moduleDataSetup;
+        $this->moduleDataSetup = $moduleDataSetup;
         $this->customerSetupFactory = $customerSetupFactory;
     }
 
@@ -61,12 +59,12 @@ class AddCustomerSalesforceAccountAttribute implements DataPatchInterface
             Customer::ENTITY,
             'salesforce_account_id',
             [
-                'group'    => 'General',
-                'label'    => 'Salesforce Account Id',
-                'type'     => 'varchar',
+                'group' => 'General',
+                'label' => 'Salesforce Account Id',
+                'type' => 'varchar',
                 'required' => false,
-                'unique'   => true,
-                'system'   => false,
+                'unique' => true,
+                'system' => false,
             ]
         );
 

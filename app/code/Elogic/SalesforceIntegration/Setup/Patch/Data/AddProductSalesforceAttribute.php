@@ -14,8 +14,6 @@ class AddProductSalesforceAttribute implements DataPatchInterface
      * @var \Magento\Framework\Setup\ModuleDataSetupInterface
      */
     private ModuleDataSetupInterface $moduleDataSetup;
-
-
     /**
      * @var \Magento\Eav\Setup\EavSetupFactory
      */

@@ -26,6 +26,34 @@ class Communication extends AbstractHelper
      * @var \Magento\Customer\Api\Data\CustomerInterface
      */
     private CustomerInterface $customer;
+    /**
+     * @var \Magento\Customer\Api\CustomerRepositoryInterface
+     */
+    private CustomerRepositoryInterface $customerRepository;
+    /**
+     * @var \Magento\Customer\Api\AddressRepositoryInterface
+     */
+    private AddressRepositoryInterface $addressRepository;
+    /**
+     * @var \Magento\Catalog\Api\ProductRepositoryInterface
+     */
+    private ProductRepositoryInterface $productRepository;
+    /**
+     * @var \Elogic\SalesforceIntegration\Model\SalesforceRepository
+     */
+    private SalesforceRepository $salesforceRepository;
+    /**
+     * @var \Magento\Framework\Api\SearchCriteriaBuilderFactory
+     */
+    private SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory;
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private LoggerInterface $logger;
+    /**
+     * @var \Magento\Framework\HTTP\Client\Curl
+     */
+    private MagentoCurl $curl;
 
     /**
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
@@ -39,21 +67,20 @@ class Communication extends AbstractHelper
      */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
-        MagentoCurl $curl,
-        LoggerInterface $logger,
         AddressRepositoryInterface $addressRepository,
         ProductRepositoryInterface $productRepository,
         SalesforceRepository $salesforceRepository,
         SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory,
+        LoggerInterface $logger,
+        MagentoCurl $curl,
     ) {
-        $this->curl = $curl;
-        $this->logger = $logger;
         $this->addressRepository = $addressRepository;
         $this->customerRepository = $customerRepository;
         $this->productRepository = $productRepository;
         $this->salesforceRepository = $salesforceRepository;
-        $this->searchCriteriaBuilerFactory = $searchCriteriaBuilderFactory;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilderFactory->create();
+        $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
+        $this->logger = $logger;
+        $this->curl = $curl;
     }
 
     /**
@@ -393,7 +420,7 @@ class Communication extends AbstractHelper
      */
     public function getProducts()
     {
-        $searchCriteriaBuilder = $this->searchCriteriaBuilerFactory->create();
+        $searchCriteriaBuilder = $this->searchCriteriaBuilderFactory->create();
         $searchCriteria = $searchCriteriaBuilder->addFilter(
             'entity_id',
             array_keys(json_decode($this->salesforce->getProductIds(), true)),
