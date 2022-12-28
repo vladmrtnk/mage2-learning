@@ -3,42 +3,48 @@
 namespace Elogic\SalesforceIntegration\Model\Salesforce;
 
 use Elogic\SalesforceIntegration\Api\Data\SalesforceInterface;
-use Elogic\SalesforceIntegration\Helper\Curl;
-use Elogic\SalesforceIntegration\Helper\SalesforceCommunication;
+use Elogic\SalesforceIntegration\Helper\Communication;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
 class SalesforceConsumer
 {
+    /**
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+     * @param \Elogic\SalesforceIntegration\Helper\Communication $communication
+     * @param \Psr\Log\LoggerInterface $logger
+     */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
-        SalesforceCommunication $salesforceCommunication,
+        Communication $communication,
         LoggerInterface $logger,
     ) {
         $this->customerRepository = $customerRepository;
         $this->logger = $logger;
-        $this->salesforceCommunication = $salesforceCommunication;
+        $this->communication = $communication;
     }
 
+    /**
+     * @param \Elogic\SalesforceIntegration\Api\Data\SalesforceInterface $salesforce
+     * @return void
+     */
     public function process(SalesforceInterface $salesforce)
     {
-        $this->logger->info('Start integration');
-
         try {
             $customer = $this->customerRepository->getById($salesforce->getCustomerId());
+            $bearerToken = $this->communication->getToken();
+            $this->communication->setHeader($bearerToken);
+            $this->communication->setSalesforce($salesforce);
+            $this->communication->setCustomer($customer);
 
-            $bearerToken = $this->salesforceCommunication->getToken();
-            $this->salesforceCommunication->setHeader($bearerToken);
-            $this->salesforceCommunication->createSalesforceAccount($customer);
-            $this->salesforceCommunication->createSalesforceContact($customer);
-            $this->salesforceCommunication->createSalesforceProducts($salesforce);
-            $this->salesforceCommunication->createSalesforceContract($salesforce, $customer);
-            $this->salesforceCommunication->createSalesforceOrder($salesforce, $customer);
-            $this->salesforceCommunication->addProductsToSalesforceOrder($salesforce, $bearerToken);
+            $this->communication->createSalesforceAccount();
+            $this->communication->createSalesforceContact();
+            $this->communication->createSalesforceProducts();
+            $this->communication->createSalesforceContract();
+            $this->communication->createSalesforceOrder();
+            $this->communication->addProductsToSalesforceOrder($bearerToken);
         } catch (\Exception $exception) {
             $this->logger->error($exception);
         }
-
-        $this->logger->info('Successful salesforce integration #' . $salesforce->getId());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Elogic\SalesforceIntegration\Helper;
 
+use Elogic\SalesforceIntegration\Api\Data\SalesforceInterface;
 use Elogic\SalesforceIntegration\Helper\Salesforce as SalesforceHelper;
 use Elogic\SalesforceIntegration\Model\SalesforceRepository;
 use Laminas\View\Helper\AbstractHelper;
@@ -15,8 +16,17 @@ use Magento\Framework\HTTP\Client\Curl as MagentoCurl;
 use Psr\Log\LoggerInterface;
 
 
-class SalesforceCommunication extends AbstractHelper
+class Communication extends AbstractHelper
 {
+    /**
+     * @var \Elogic\SalesforceIntegration\Api\Data\SalesforceInterface
+     */
+    private SalesforceInterface $salesforce;
+    /**
+     * @var \Magento\Customer\Api\Data\CustomerInterface
+     */
+    private CustomerInterface $customer;
+
     /**
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param \Magento\Framework\HTTP\Client\Curl $curl
@@ -78,19 +88,40 @@ class SalesforceCommunication extends AbstractHelper
     }
 
     /**
-     * Send request for creating Account
+     * Set Salesforce model for using in other methods
+     *
+     * @param \Elogic\SalesforceIntegration\Api\Data\SalesforceInterface $salesforce
+     * @return void
+     */
+    public function setSalesforce(SalesforceInterface $salesforce)
+    {
+        $this->salesforce = $salesforce;
+    }
+
+    /**
+     * Set Salesforce model for using in other methods
      *
      * @param \Magento\Customer\Api\Data\CustomerInterface $customer
+     * @return void
+     */
+    public function setCustomer(CustomerInterface $customer)
+    {
+        $this->customer = $customer;
+    }
+
+    /**
+     * Send request for creating Account
+     *
      * @return void
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\State\InputMismatchException
      */
-    public function createSalesforceAccount(CustomerInterface $customer)
+    public function createSalesforceAccount()
     {
-        if (is_null($customer->getCustomAttribute('salesforce_account_id'))) {
+        if (is_null($this->customer->getCustomAttribute('salesforce_account_id'))) {
             $data = [
-                'Name' => $customer->getFirstname() . ' ' . $customer->getLastname(),
+                'Name' => $this->customer->getFirstname() . ' ' . $this->customer->getLastname(),
             ];
 
             $this->curl->post(
@@ -100,8 +131,8 @@ class SalesforceCommunication extends AbstractHelper
 
             if ($this->curl->getStatus() == 201) {
                 $id = json_decode($this->curl->getBody())->id;
-                $customer->setCustomAttribute('salesforce_account_id', $id);
-                $this->customerRepository->save($customer);
+                $this->customer->setCustomAttribute('salesforce_account_id', $id);
+                $this->customerRepository->save($this->customer);
             } else {
                 $this->logger->error($this->curl->getStatus() . ' | ' . $this->curl->getBody());
             }
@@ -111,21 +142,20 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Send request for creating Contact
      *
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
      * @return void
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\State\InputMismatchException
      */
-    public function createSalesforceContact(CustomerInterface $customer)
+    public function createSalesforceContact()
     {
-        if (is_null($customer->getCustomAttribute('salesforce_contact_id'))) {
-            $address = $this->addressRepository->getById($customer->getDefaultShipping());
+        if (is_null($this->customer->getCustomAttribute('salesforce_contact_id'))) {
+            $address = $this->addressRepository->getById($this->customer->getDefaultShipping());
             $data = [
-                'AccountId'         => $customer->getCustomAttribute('salesforce_account_id')->getValue(),
-                'FirstName'         => $customer->getFirstname(),
-                'LastName'          => $customer->getLastname(),
-                'Email'             => $customer->getEmail(),
+                'AccountId'         => $this->customer->getCustomAttribute('salesforce_account_id')->getValue(),
+                'FirstName'         => $this->customer->getFirstname(),
+                'LastName'          => $this->customer->getLastname(),
+                'Email'             => $this->customer->getEmail(),
                 'MobilePhone'       => $address->getTelephone(),
                 'MailingStreet'     => array_first($address->getStreet()),
                 'MailingCity'       => $address->getCity(),
@@ -141,8 +171,8 @@ class SalesforceCommunication extends AbstractHelper
 
             if ($this->curl->getStatus() == 201) {
                 $id = json_decode($this->curl->getBody())->id;
-                $customer->setCustomAttribute('salesforce_contact_id', $id);
-                $this->customerRepository->save($customer);
+                $this->customer->setCustomAttribute('salesforce_contact_id', $id);
+                $this->customerRepository->save($this->customer);
             } else {
                 $this->logger->error($this->curl->getStatus() . ' | ' . $this->curl->getBody());
             }
@@ -152,15 +182,14 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Send requests for creating Products
      *
-     * @param $salesforce
      * @return void
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\StateException
      */
-    public function createSalesforceProducts($salesforce)
+    public function createSalesforceProducts()
     {
-        foreach ($this->getProducts($salesforce) as $product) {
+        foreach ($this->getProducts($this->salesforce) as $product) {
             if (is_null($product->getCustomAttribute('salesforce_product_id'))) {
                 $data = [
                     'Name'        => $product->getName(),
@@ -224,20 +253,18 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Send request for creating Contract
      *
-     * @param $salesforce
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
      * @return void
      * @throws \Magento\Framework\Exception\AlreadyExistsException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function createSalesforceContract($salesforce, CustomerInterface $customer)
+    public function createSalesforceContract()
     {
-        if (is_null($salesforce->getSalesforceContractId())) {
-            $address = $this->addressRepository->getById($customer->getDefaultBilling());
+        if (is_null($this->salesforce->getSalesforceContractId())) {
+            $address = $this->addressRepository->getById($this->customer->getDefaultBilling());
             $data = [
-                'AccountId'         => $customer->getCustomAttribute('salesforce_account_id')->getValue(),
+                'AccountId'         => $this->customer->getCustomAttribute('salesforce_account_id')->getValue(),
                 'Pricebook2Id'      => SalesforceHelper::PRICEBOOK_ID,
-                'CustomerSignedId'  => $customer->getCustomAttribute('salesforce_contact_id')->getValue(),
+                'CustomerSignedId'  => $this->customer->getCustomAttribute('salesforce_contact_id')->getValue(),
                 'BillingStreet'     => array_first($address->getStreet()),
                 'BillingCity'       => $address->getCity(),
                 'BillingPostalCode' => $address->getPostcode(),
@@ -251,8 +278,8 @@ class SalesforceCommunication extends AbstractHelper
             );
 
             if ($this->curl->getStatus() == 201) {
-                $salesforce->setSalesforceContractId(json_decode($this->curl->getBody())->id);
-                $this->salesforceRepository->save($salesforce);
+                $this->salesforce->setSalesforceContractId(json_decode($this->curl->getBody())->id);
+                $this->salesforceRepository->save($this->salesforce);
             } else {
                 $this->logger->error($this->curl->getStatus() . ' | ' . $this->curl->getBody());
             }
@@ -262,21 +289,19 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Send request for creating Order
      *
-     * @param $salesforce
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
      * @return void
      * @throws \Magento\Framework\Exception\AlreadyExistsException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function createSalesforceOrder($salesforce, CustomerInterface $customer)
+    public function createSalesforceOrder()
     {
-        if (is_null($salesforce->getSalesforceOrderId())) {
-            $billingAddress = $this->addressRepository->getById($customer->getDefaultBilling());
-            $shippingAddress = $this->addressRepository->getById($customer->getDefaultShipping());
+        if (is_null($this->salesforce->getSalesforceOrderId())) {
+            $billingAddress = $this->addressRepository->getById($this->customer->getDefaultBilling());
+            $shippingAddress = $this->addressRepository->getById($this->customer->getDefaultShipping());
             $data = [
-                'AccountId'          => $customer->getCustomAttribute('salesforce_account_id')->getValue(),
+                'AccountId'          => $this->customer->getCustomAttribute('salesforce_account_id')->getValue(),
                 'Pricebook2Id'       => SalesforceHelper::PRICEBOOK_ID,
-                'ContractId'         => $salesforce->getSalesforceContractId(),
+                'ContractId'         => $this->salesforce->getSalesforceContractId(),
                 'BillingStreet'      => array_first($billingAddress->getStreet()),
                 'BillingCity'        => $billingAddress->getCity(),
                 'BillingPostalCode'  => $billingAddress->getPostcode(),
@@ -297,8 +322,8 @@ class SalesforceCommunication extends AbstractHelper
             );
 
             if ($this->curl->getStatus() == 201) {
-                $salesforce->setSalesforceOrderId(json_decode($this->curl->getBody())->id);
-                $this->salesforceRepository->save($salesforce);
+                $this->salesforce->setSalesforceOrderId(json_decode($this->curl->getBody())->id);
+                $this->salesforceRepository->save($this->salesforce);
             } else {
                 $this->logger->error($this->curl->getStatus() . ' | ' . $this->curl->getBody());
             }
@@ -308,15 +333,14 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Send request for adding products to Order
      *
-     * @param $salesforce
      * @param $bearerToken
      * @return void
      */
-    public function addProductsToSalesforceOrder($salesforce, $bearerToken)
+    public function addProductsToSalesforceOrder($bearerToken)
     {
-        $orderId = $salesforce->getSalesforceOrderId();
-        $products = json_decode($salesforce->getProductIds(), true);
-        foreach ($this->getProducts($salesforce) as $product) {
+        $orderId = $this->salesforce->getSalesforceOrderId();
+        $products = json_decode($this->salesforce->getProductIds(), true);
+        foreach ($this->getProducts($this->salesforce) as $product) {
             $products_data[] = [
                 'attributes'       => [
                     'type' => 'OrderItem',
@@ -356,7 +380,7 @@ class SalesforceCommunication extends AbstractHelper
         curl_close($curl);
 
         if ($response) {
-            $this->logger->info('Salesforce integration #' . $salesforce->getId() . ' successful!');
+            $this->logger->info('Salesforce integration #' . $this->salesforce->getId() . ' successful!');
         } else {
             $this->logger->error($response);
         }
@@ -365,15 +389,14 @@ class SalesforceCommunication extends AbstractHelper
     /**
      * Get Product Collection
      *
-     * @param $salesforce
      * @return \Magento\Catalog\Api\Data\ProductInterface[]
      */
-    public function getProducts($salesforce)
+    public function getProducts()
     {
         $searchCriteriaBuilder = $this->searchCriteriaBuilerFactory->create();
         $searchCriteria = $searchCriteriaBuilder->addFilter(
             'entity_id',
-            array_keys(json_decode($salesforce->getProductIds(), true)),
+            array_keys(json_decode($this->salesforce->getProductIds(), true)),
             'in'
         )->create();
 
